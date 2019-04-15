@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SteperView">
+        <attr name="sv_font" format="string|reference"/>
+        <attr name="sv_item_thumbs" format="reference"/>
+        <attr name="sv_item_titles" format="reference"/>
+        <attr name="sv_item_selected_color" format="reference|color"/>
+        <attr name="sv_item_default_color" format="reference|color"/>
+        <attr name="sv_item_text" format="string|reference" />
+        <attr name="sv_item_img_src" format="reference"/>
+    </declare-styleable>
+</resources>

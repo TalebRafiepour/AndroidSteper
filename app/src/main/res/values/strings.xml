@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AndroidSteper</string>
+    <string-array name="titles">
+        <item>آیتم اول</item>
+        <item>آیتم دوم</item>
+        <item>آیتم سوم</item>
+        <item>آیتم چهارم</item>
+    </string-array>
+</resources>

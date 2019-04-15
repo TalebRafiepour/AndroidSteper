@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="thumbs">
+        <item>@drawable/icon_not_found</item>
+        <item>@drawable/icon_not_found</item>
+        <item>@drawable/icon_not_found</item>
+        <item>@drawable/icon_not_found</item>
+    </integer-array>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.taleb.steperview.SteperView
+        android:layout_margin="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:layout_gravity="center|start"
+        app:sv_item_thumbs="@array/thumbs"
+        app:sv_item_titles="@array/titles"
+        app:sv_font="fonts/IRAN Sans.ttf"/>
+
+</FrameLayout>

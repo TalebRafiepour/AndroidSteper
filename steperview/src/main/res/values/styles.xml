@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SteperTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/very_small_space</item>
+    </style>
+</resources>
