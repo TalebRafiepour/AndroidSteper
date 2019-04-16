@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,6 +18,8 @@ class SteperItem :LinearLayout {
 
     private lateinit var itemSteperImageView:ImageView
     private lateinit var itemSteperTextView:TextView
+    private var normalTextSize:Float = 14.0f
+    private var selectedTextSize:Float = 16.0f
 
     constructor(context: Context,steperImageSrc: Int, steperText:String,typeface: Typeface?):super(context){
         init(context,null)
@@ -43,7 +48,7 @@ class SteperItem :LinearLayout {
         //
         itemSteperTextView = TextView(context)
         itemSteperTextView.setTextColor(Color.BLACK)
-        itemSteperTextView.textSize = 14.0f
+        itemSteperTextView.textSize = normalTextSize
         val txtLP = LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
         itemSteperTextView.layoutParams = txtLP
         this.addView(itemSteperTextView)
@@ -66,6 +71,18 @@ class SteperItem :LinearLayout {
             ex.printStackTrace()
         } finally {
             typedArray.recycle()
+        }
+    }
+
+    fun select(isSelected : Boolean) {
+        if (isSelected) {
+            val imgLP = LayoutParams(resources.getDimension(R.dimen.normal_button).toInt(),resources.getDimension(R.dimen.normal_button).toInt())
+            itemSteperImageView.layoutParams = imgLP
+            itemSteperTextView.textSize = selectedTextSize
+        }else {
+            val imgLP = LayoutParams(resources.getDimension(R.dimen.small_button).toInt(),resources.getDimension(R.dimen.small_button).toInt())
+            itemSteperImageView.layoutParams = imgLP
+            itemSteperTextView.textSize = normalTextSize
         }
     }
 

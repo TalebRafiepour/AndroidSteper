@@ -1,12 +1,18 @@
 package com.taleb.steperview
 
+import android.animation.TimeInterpolator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnticipateOvershootInterpolator
+import android.view.animation.LayoutAnimationController
 import android.widget.LinearLayout
 import java.lang.Exception
 
@@ -20,6 +26,8 @@ class SteperView : LinearLayout,View.OnClickListener{
     private var selectedItem = 0
     private var thumbCount = 0
     var listener: ISteperView? = null
+    //
+    private lateinit var changeBound:ChangeBounds
 
     constructor(context: Context):super(context){
         init(context,null)
@@ -37,6 +45,10 @@ class SteperView : LinearLayout,View.OnClickListener{
     private fun init(context: Context, attributeSet: AttributeSet?) {
         this.orientation = VERTICAL
         this.gravity = Gravity.CENTER
+        this.changeBound = ChangeBounds()
+        this.changeBound.startDelay = 0
+        this.changeBound.interpolator = AnticipateOvershootInterpolator()
+        this.changeBound.duration = 500
         //
         if (attributeSet == null){return}
         val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.SteperView)
@@ -126,6 +138,7 @@ class SteperView : LinearLayout,View.OnClickListener{
 
     private fun selectItem(index: Int) {
         this.selectedItem = index
+        TransitionManager.beginDelayedTransition(this,changeBound)
         var temp = -1
         var i = 0
         while (i < childCount) {
@@ -133,6 +146,7 @@ class SteperView : LinearLayout,View.OnClickListener{
                 temp +=1
                 if (temp <= index) {
                     (getChildAt(i) as SteperItem).setTintColor(selectedColor)
+                    (getChildAt(i) as SteperItem).select(true)
                     if (i-1 > 0){
                         getChildAt(i-1).setBackgroundColor(selectedColor)
                         if (temp == index){
@@ -144,6 +158,7 @@ class SteperView : LinearLayout,View.OnClickListener{
                     }
                 }else {
                     (getChildAt(i) as SteperItem).setTintColor(defaultColor)
+                    (getChildAt(i) as SteperItem).select(false)
                     if (i-1 > 0){
                         getChildAt(i-1).setBackgroundColor(defaultColor)
                         getChildAt(i-1).layoutParams = LayoutParams(1,0,1.0f)
