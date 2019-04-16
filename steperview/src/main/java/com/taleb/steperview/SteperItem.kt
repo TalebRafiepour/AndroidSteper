@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.support.v4.view.GravityCompat
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.ImageView
@@ -68,5 +67,10 @@ class SteperItem :LinearLayout {
         } finally {
             typedArray.recycle()
         }
+    }
+
+    fun setTintColor(color: Int) {
+        this.itemSteperImageView.setColorFilter(color)
+        this.itemSteperTextView.setTextColor(color)
     }
 }

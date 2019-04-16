@@ -8,5 +8,6 @@
         <attr name="sv_item_default_color" format="reference|color"/>
         <attr name="sv_item_text" format="string|reference" />
         <attr name="sv_item_img_src" format="reference"/>
+        <attr name="sv_selected_position" format="integer"/>
     </declare-styleable>
 </resources>

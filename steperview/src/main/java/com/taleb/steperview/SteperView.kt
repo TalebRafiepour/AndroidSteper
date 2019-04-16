@@ -10,14 +10,16 @@ import android.view.View
 import android.widget.LinearLayout
 import java.lang.Exception
 
-class SteperView : LinearLayout{
+class SteperView : LinearLayout,View.OnClickListener{
 
-    private lateinit var view:LinearLayout
     private var typeface:Typeface? = null
-    private var selectedColor:Int? = null
-    private var defaultColor:Int? = null
+    private var selectedColor:Int = Color.BLACK
+    private var defaultColor:Int =Color.LTGRAY
     private var itemThumbsRes:Int? = null
     private var itemTitles:Int? = null
+    private var selectedItem = 0
+    private var thumbCount = 0
+    var listener: ISteperView? = null
 
     constructor(context: Context):super(context){
         init(context,null)
@@ -43,6 +45,7 @@ class SteperView : LinearLayout{
             this.defaultColor = typedArray.getColor(R.styleable.SteperView_sv_item_default_color,Color.LTGRAY)
             this.itemThumbsRes = typedArray.getResourceId(R.styleable.SteperView_sv_item_thumbs,0)
             this.itemTitles = typedArray.getResourceId(R.styleable.SteperView_sv_item_titles,0)
+            this.selectedItem = typedArray.getInt(R.styleable.SteperView_sv_selected_position,0)
             try {
                 val fontSrc = typedArray.getString(R.styleable.SteperView_sv_font)
                 val typeface = Typeface.createFromAsset(context.assets, fontSrc)
@@ -64,7 +67,7 @@ class SteperView : LinearLayout{
         val resourceArray = resources.obtainTypedArray(itemThumbsRes!!)
         val titleArray = resources.obtainTypedArray(itemTitles!!)
         if (resourceArray.length() != titleArray.length()) {return}
-
+        this.thumbCount = resourceArray.length()
         for (i in 0 until resourceArray.length()) {
             val resId = resourceArray.getResourceId(i,0)
             val title = titleArray.getText(i)
@@ -72,18 +75,88 @@ class SteperView : LinearLayout{
             val steperItem = SteperItem(context,resId,"$title",typeface)
             val param = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
             steperItem.layoutParams = param
+            steperItem.id = i
+            steperItem.setTintColor(defaultColor)
+            steperItem.setOnClickListener(this)
             this.addView(steperItem)
             if (i != resourceArray.length()-1) {
                 val lineView = View(context)
-                var weight = 1.0f
-                if (i == 0){weight = (resourceArray.length()-1).toFloat()}
-                val param1 = LinearLayout.LayoutParams(1,0,weight)
+                val param1 = LinearLayout.LayoutParams(1,0,1.0f)
                 lineView.layoutParams = param1
-                lineView.setBackgroundColor(Color.LTGRAY)
+                lineView.setBackgroundColor(defaultColor)
                 this.addView(lineView)
             }
         }
         resourceArray.recycle()
         titleArray.recycle()
+
+        selectItem(this.selectedItem)
+    }
+
+    override fun onClick(v: View?) {
+        if (v != null && v is SteperItem) {
+            selectItem(v.id)
+            listener?.onStepItemClick(v.id)
+        }
+    }
+
+    fun disableItem(position: Int) {
+        findViewById<SteperItem>(position).isEnabled = false
+    }
+
+    fun enableItem(position: Int) {
+        findViewById<SteperItem>(position).isEnabled = true
+    }
+
+    fun gotToNext(){
+        if (this.selectedItem+1 >= thumbCount){return}
+        if (findViewById<SteperItem>(this.selectedItem+1).isEnabled){
+            this.selectedItem +=1
+            selectItem(this.selectedItem)
+        }
+    }
+
+    fun gotToPrev(){
+        if (this.selectedItem-1 < 0){return}
+        if (findViewById<SteperItem>(this.selectedItem-1).isEnabled){
+            this.selectedItem -=1
+            selectItem(this.selectedItem)
+        }
+    }
+
+    private fun selectItem(index: Int) {
+        this.selectedItem = index
+        var temp = -1
+        var i = 0
+        while (i < childCount) {
+            if (getChildAt(i) is SteperItem) {
+                temp +=1
+                if (temp <= index) {
+                    (getChildAt(i) as SteperItem).setTintColor(selectedColor)
+                    if (i-1 > 0){
+                        getChildAt(i-1).setBackgroundColor(selectedColor)
+                        if (temp == index){
+                            getChildAt(i-1).layoutParams = LayoutParams(1,0,4.0f)
+                        }else {
+                            getChildAt(i-1).layoutParams = LayoutParams(1,0,1.0f)
+                        }
+                        i += 1
+                    }
+                }else {
+                    (getChildAt(i) as SteperItem).setTintColor(defaultColor)
+                    if (i-1 > 0){
+                        getChildAt(i-1).setBackgroundColor(defaultColor)
+                        getChildAt(i-1).layoutParams = LayoutParams(1,0,1.0f)
+                        i += 1
+                    }
+                }
+            }
+            i += 1
+        }
+
+    }
+
+    interface ISteperView{
+        fun onStepItemClick(position: Int)
     }
 }

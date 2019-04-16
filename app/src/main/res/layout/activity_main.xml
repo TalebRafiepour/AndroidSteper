@@ -7,12 +7,34 @@
     tools:context=".MainActivity">
 
     <com.taleb.steperview.SteperView
+        android:id="@+id/mainSteper"
         android:layout_margin="12dp"
         android:layout_width="wrap_content"
-        android:layout_height="350dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center|start"
         app:sv_item_thumbs="@array/thumbs"
         app:sv_item_titles="@array/titles"
-        app:sv_font="fonts/IRAN Sans.ttf"/>
+        app:sv_font="fonts/IRAN Sans.ttf"
+        app:sv_selected_position="0"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="بعدی"/>
+        <Button
+            android:id="@+id/prevButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="قبلی"/>
+    </LinearLayout>
+
 
 </FrameLayout>
