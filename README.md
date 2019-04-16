@@ -30,4 +30,6 @@ allprojects {
         app:sv_item_thumbs="@array/thumbs"
         app:sv_item_titles="@array/titles"
         app:sv_font="fonts/IRAN Sans.ttf"
+        app:sv_item_selected_color="@color/colorPrimary"
+        app:sv_item_default_color="@color/colorAccent"
         app:sv_selected_position="0"/>
