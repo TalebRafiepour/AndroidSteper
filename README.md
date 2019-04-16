@@ -18,7 +18,7 @@ allprojects {
   
  ----------------------------------------
  
- ![alt text](https://github.com/TalebRafiepour/AndroidSteper/blob/master/Screenshot_1555401900.png)
+ ![alt text](https://github.com/TalebRafiepour/AndroidSteper/blob/master/screen.gif)
  
  
  2.use
