@@ -13,7 +13,7 @@ allprojects {
   -------------------------------------
   
   dependencies {
-	        implementation 'com.github.TalebRafiepour:AndroidSteper:Tag'
+	        implementation 'com.github.TalebRafiepour:AndroidSteper:0.1'
 	}
   
  ----------------------------------------
