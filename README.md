@@ -20,6 +20,7 @@ allprojects {
  
  2.use
  
+```
 <com.taleb.steperview.SteperView
         android:id="@+id/mainSteper"
         android:layout_margin="12dp"
@@ -30,3 +31,4 @@ allprojects {
         app:sv_item_titles="@array/titles"
         app:sv_font="fonts/IRAN Sans.ttf"
         app:sv_selected_position="0"/>
+	```
