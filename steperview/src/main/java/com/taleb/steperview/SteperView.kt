@@ -76,6 +76,7 @@ class SteperView : LinearLayout,View.OnClickListener{
 
     private fun initUI(context: Context) {
         if (itemThumbsRes == null || itemTitles == null) return
+        if (itemThumbsRes == 0 || itemTitles == 0) return
         val resourceArray = resources.obtainTypedArray(itemThumbsRes!!)
         val titleArray = resources.obtainTypedArray(itemTitles!!)
         if (resourceArray.length() != titleArray.length()) {return}
