@@ -11,5 +11,7 @@
         <attr name="sv_selected_position" format="integer"/>
         <attr name="sv_item_selected_size" format="dimension|reference"/>
         <attr name="sv_item_default_size" format="dimension|reference"/>
+        <attr name="sv_selected_text_size" format="dimension|reference"/>
+        <attr name="sv_default_text_size" format="dimension|reference"/>
     </declare-styleable>
 </resources>

@@ -15,8 +15,8 @@ class SteperItem :LinearLayout {
 
     private lateinit var itemSteperImageView:ImageView
     private lateinit var itemSteperTextView:TextView
-    private var normalTextSize:Float = 14.0f
-    private var selectedTextSize:Float = 16.0f
+    var defaultTextSize:Float = 12.0f
+    var selectedTextSize:Float = 14.0f
     var selectedSize = -1
     var defaultSize = -1
 
@@ -52,7 +52,7 @@ class SteperItem :LinearLayout {
         //
         itemSteperTextView = TextView(context)
         itemSteperTextView.setTextColor(Color.BLACK)
-        itemSteperTextView.textSize = normalTextSize
+        itemSteperTextView.textSize = defaultTextSize
         val txtLP = LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
         itemSteperTextView.layoutParams = txtLP
         this.addView(itemSteperTextView)
@@ -96,7 +96,7 @@ class SteperItem :LinearLayout {
                 val imgLP = LayoutParams(resources.getDimension(R.dimen.small_button).toInt(),resources.getDimension(R.dimen.small_button).toInt())
                 itemSteperImageView.layoutParams = imgLP
             }
-            itemSteperTextView.textSize = normalTextSize
+            itemSteperTextView.textSize = defaultTextSize
         }
     }
 

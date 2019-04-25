@@ -22,6 +22,8 @@ class SteperView : LinearLayout,View.OnClickListener{
     private var itemTitles:Int? = null
     private var itemSelectedSize:Int = -1
     private var itemDefaultSize:Int = -1
+    private var selectedTextSize:Float = -1.0f
+    private var defaultTextSize:Float = -1.0f
     private var selectedItem = 0
     private var thumbCount = 0
     var listener: ISteperView? = null
@@ -59,6 +61,8 @@ class SteperView : LinearLayout,View.OnClickListener{
             this.selectedItem = typedArray.getInt(R.styleable.SteperView_sv_selected_position,0)
             this.itemSelectedSize = typedArray.getDimensionPixelOffset(R.styleable.SteperView_sv_item_selected_size,-1)
             this.itemDefaultSize = typedArray.getDimensionPixelOffset(R.styleable.SteperView_sv_item_default_size,-1)
+            this.defaultTextSize = typedArray.getDimension(R.styleable.SteperView_sv_default_text_size,-1.0f)
+            this.selectedTextSize = typedArray.getDimension(R.styleable.SteperView_sv_selected_text_size,-1.0f)
             try {
                 val fontSrc = typedArray.getString(R.styleable.SteperView_sv_font)
                 val typeface = Typeface.createFromAsset(context.assets, fontSrc)
@@ -92,6 +96,9 @@ class SteperView : LinearLayout,View.OnClickListener{
             steperItem.id = i
             steperItem.defaultSize = this.itemDefaultSize
             steperItem.selectedSize = this.itemSelectedSize
+            steperItem.selectedTextSize = this.selectedTextSize
+            steperItem.defaultTextSize = this.defaultTextSize
+
             steperItem.setTintColor(defaultColor)
             steperItem.setOnClickListener(this)
             this.addView(steperItem)
