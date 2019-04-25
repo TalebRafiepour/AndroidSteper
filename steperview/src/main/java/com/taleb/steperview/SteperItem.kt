@@ -4,11 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.transition.ChangeBounds
-import android.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -20,6 +17,8 @@ class SteperItem :LinearLayout {
     private lateinit var itemSteperTextView:TextView
     private var normalTextSize:Float = 14.0f
     private var selectedTextSize:Float = 16.0f
+    var selectedSize = -1
+    var defaultSize = -1
 
     constructor(context: Context,steperImageSrc: Int, steperText:String,typeface: Typeface?):super(context){
         init(context,null)
@@ -42,8 +41,13 @@ class SteperItem :LinearLayout {
         this.gravity = Gravity.CENTER
         this.setPadding(8,8,8,8)
         itemSteperImageView = ImageView(context)
-        val imgLP = LayoutParams(resources.getDimension(R.dimen.small_button).toInt(),resources.getDimension(R.dimen.small_button).toInt())
-        itemSteperImageView.layoutParams = imgLP
+        if (defaultSize > 0) {
+            val imgLP = LayoutParams(defaultSize,defaultSize)
+            itemSteperImageView.layoutParams = imgLP
+        }else {
+            val imgLP = LayoutParams(resources.getDimension(R.dimen.small_button).toInt(),resources.getDimension(R.dimen.small_button).toInt())
+            itemSteperImageView.layoutParams = imgLP
+        }
         this.addView(itemSteperImageView)
         //
         itemSteperTextView = TextView(context)
@@ -76,12 +80,22 @@ class SteperItem :LinearLayout {
 
     fun select(isSelected : Boolean) {
         if (isSelected) {
-            val imgLP = LayoutParams(resources.getDimension(R.dimen.normal_button).toInt(),resources.getDimension(R.dimen.normal_button).toInt())
-            itemSteperImageView.layoutParams = imgLP
+            if (selectedSize > 0) {
+                val imgLP = LayoutParams(selectedSize,selectedSize)
+                itemSteperImageView.layoutParams = imgLP
+            }else {
+                val imgLP = LayoutParams(resources.getDimension(R.dimen.normal_button).toInt(),resources.getDimension(R.dimen.normal_button).toInt())
+                itemSteperImageView.layoutParams = imgLP
+            }
             itemSteperTextView.textSize = selectedTextSize
         }else {
-            val imgLP = LayoutParams(resources.getDimension(R.dimen.small_button).toInt(),resources.getDimension(R.dimen.small_button).toInt())
-            itemSteperImageView.layoutParams = imgLP
+            if (defaultSize > 0) {
+                val imgLP = LayoutParams(defaultSize,defaultSize)
+                itemSteperImageView.layoutParams = imgLP
+            }else {
+                val imgLP = LayoutParams(resources.getDimension(R.dimen.small_button).toInt(),resources.getDimension(R.dimen.small_button).toInt())
+                itemSteperImageView.layoutParams = imgLP
+            }
             itemSteperTextView.textSize = normalTextSize
         }
     }

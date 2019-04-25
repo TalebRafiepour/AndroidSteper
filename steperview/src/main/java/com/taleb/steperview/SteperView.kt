@@ -1,6 +1,5 @@
 package com.taleb.steperview
 
-import android.animation.TimeInterpolator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
@@ -10,9 +9,7 @@ import android.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnticipateOvershootInterpolator
-import android.view.animation.LayoutAnimationController
 import android.widget.LinearLayout
 import java.lang.Exception
 
@@ -23,6 +20,8 @@ class SteperView : LinearLayout,View.OnClickListener{
     private var defaultColor:Int =Color.LTGRAY
     private var itemThumbsRes:Int? = null
     private var itemTitles:Int? = null
+    private var itemSelectedSize:Int = -1
+    private var itemDefaultSize:Int = -1
     private var selectedItem = 0
     private var thumbCount = 0
     var listener: ISteperView? = null
@@ -58,6 +57,8 @@ class SteperView : LinearLayout,View.OnClickListener{
             this.itemThumbsRes = typedArray.getResourceId(R.styleable.SteperView_sv_item_thumbs,0)
             this.itemTitles = typedArray.getResourceId(R.styleable.SteperView_sv_item_titles,0)
             this.selectedItem = typedArray.getInt(R.styleable.SteperView_sv_selected_position,0)
+            this.itemSelectedSize = typedArray.getDimensionPixelOffset(R.styleable.SteperView_sv_item_selected_size,-1)
+            this.itemDefaultSize = typedArray.getDimensionPixelOffset(R.styleable.SteperView_sv_item_default_size,-1)
             try {
                 val fontSrc = typedArray.getString(R.styleable.SteperView_sv_font)
                 val typeface = Typeface.createFromAsset(context.assets, fontSrc)
@@ -89,6 +90,8 @@ class SteperView : LinearLayout,View.OnClickListener{
             val param = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
             steperItem.layoutParams = param
             steperItem.id = i
+            steperItem.defaultSize = this.itemDefaultSize
+            steperItem.selectedSize = this.itemSelectedSize
             steperItem.setTintColor(defaultColor)
             steperItem.setOnClickListener(this)
             this.addView(steperItem)

@@ -9,5 +9,7 @@
         <attr name="sv_item_text" format="string|reference" />
         <attr name="sv_item_img_src" format="reference"/>
         <attr name="sv_selected_position" format="integer"/>
+        <attr name="sv_item_selected_size" format="dimension|reference"/>
+        <attr name="sv_item_default_size" format="dimension|reference"/>
     </declare-styleable>
 </resources>
