@@ -16,7 +16,7 @@ allprojects {
   
 ```
   dependencies {
-	        implementation 'com.github.TalebRafiepour:AndroidSteper:0.3'
+	        implementation 'com.github.TalebRafiepour:AndroidSteper:0.5'
 	}
    
 ```
@@ -40,4 +40,6 @@ allprojects {
         app:sv_item_selected_size="@dimen/normal_button"
         app:sv_item_selected_color="@color/colorPrimary"
         app:sv_item_default_color="@color/colorAccent"
-        app:sv_selected_position="0"/>
+        app:sv_selected_position="0"
+	app:sv_default_text_size="14sp"
+        app:sv_selected_text_size="16sp"/>
