@@ -16,7 +16,7 @@ allprojects {
   
 ```
   dependencies {
-	        implementation 'com.github.TalebRafiepour:AndroidSteper:0.5'
+	        implementation 'com.github.TalebRafiepour:AndroidSteper:0.6'
 	}
    
 ```
@@ -31,6 +31,7 @@ allprojects {
         android:id="@+id/mainSteper"
         android:layout_margin="12dp"
         android:layout_width="wrap_content"
+	android:orientation="vertical"
         android:layout_height="match_parent"
         android:layout_gravity="center|start"
         app:sv_item_thumbs="@array/thumbs"
