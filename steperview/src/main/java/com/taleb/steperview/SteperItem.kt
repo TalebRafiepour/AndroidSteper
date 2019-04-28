@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -20,10 +21,20 @@ class SteperItem :LinearLayout {
     var selectedSize = -1
     var defaultSize = -1
 
-    constructor(context: Context,steperImageSrc: Int, steperText:String,typeface: Typeface?):super(context){
+    constructor(context: Context,steperImageSrc: Int?, steperText:String?,typeface: Typeface?):super(context){
         init(context,null)
-        itemSteperImageView.setImageResource(steperImageSrc)
-        itemSteperTextView.text = steperText
+        if (steperImageSrc == null || steperImageSrc == 0) {
+            itemSteperImageView.visibility = View.GONE
+        }else {
+            itemSteperImageView.setImageResource(steperImageSrc)
+        }
+
+        if (steperText == null || steperText.isEmpty()) {
+            itemSteperTextView.visibility = View.GONE
+        }else {
+            itemSteperTextView.text = steperText
+        }
+
         try {itemSteperTextView.typeface = typeface}catch (e: Exception){e.printStackTrace()}
     }
 
@@ -37,10 +48,11 @@ class SteperItem :LinearLayout {
 
     @SuppressLint("CustomViewStyleable")
     private fun init(context: Context, attributeSet: AttributeSet?) {
+        itemSteperImageView = ImageView(context)
+        itemSteperTextView = TextView(context)
         this.orientation = VERTICAL
         this.gravity = Gravity.CENTER
         this.setPadding(8,8,8,8)
-        itemSteperImageView = ImageView(context)
         if (defaultSize > 0) {
             val imgLP = LayoutParams(defaultSize,defaultSize)
             itemSteperImageView.layoutParams = imgLP
@@ -50,7 +62,6 @@ class SteperItem :LinearLayout {
         }
         this.addView(itemSteperImageView)
         //
-        itemSteperTextView = TextView(context)
         itemSteperTextView.setTextColor(Color.BLACK)
         itemSteperTextView.textSize = defaultTextSize
         val txtLP = LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)
@@ -62,9 +73,11 @@ class SteperItem :LinearLayout {
         val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.SteperView)
         try {
             val text = typedArray.getString(R.styleable.SteperView_sv_item_text)
-            itemSteperTextView.text = text
-            val imgSrc = typedArray.getResourceId(R.styleable.SteperView_sv_item_img_src,R.drawable.icon_not_found)
-            itemSteperImageView.setImageResource(imgSrc)
+            if (text.isEmpty()){itemSteperTextView.visibility = View.GONE}
+            else {itemSteperTextView.text = text}
+            val imgSrc = typedArray.getResourceId(R.styleable.SteperView_sv_item_img_src,0)
+            if (imgSrc == 0) {itemSteperImageView.visibility = View.GONE}
+            else {itemSteperImageView.setImageResource(imgSrc)}
             try {
                 val fontSrc = typedArray.getString(R.styleable.SteperView_sv_font)
                 val typeface = Typeface.createFromAsset(context.assets, fontSrc)
