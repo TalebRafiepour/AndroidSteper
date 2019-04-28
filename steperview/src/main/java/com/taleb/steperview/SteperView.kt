@@ -26,6 +26,9 @@ class SteperView : LinearLayout,View.OnClickListener{
     private var defaultTextSize:Float = -1.0f
     private var selectedItem = 0
     private var thumbCount = 0
+    //
+    private var lineWidth = 0
+    private var lineHeight = 1
     var listener: ISteperView? = null
     //
     private lateinit var changeBound:ChangeBounds
@@ -44,7 +47,6 @@ class SteperView : LinearLayout,View.OnClickListener{
 
     @SuppressLint("CustomViewStyleable")
     private fun init(context: Context, attributeSet: AttributeSet?) {
-        this.orientation = VERTICAL
         this.gravity = Gravity.CENTER
         this.changeBound = ChangeBounds()
         this.changeBound.startDelay = 0
@@ -104,7 +106,14 @@ class SteperView : LinearLayout,View.OnClickListener{
             this.addView(steperItem)
             if (i != resourceArray.length()-1) {
                 val lineView = View(context)
-                val param1 = LinearLayout.LayoutParams(1,0,1.0f)
+                if (this.orientation == VERTICAL) {
+                    lineHeight = 0
+                    lineWidth = 1
+                }else {
+                    lineHeight = 1
+                    lineWidth = 0
+                }
+                val param1 = LinearLayout.LayoutParams(lineWidth,lineHeight,1.0f)
                 lineView.layoutParams = param1
                 lineView.setBackgroundColor(defaultColor)
                 this.addView(lineView)
@@ -161,9 +170,9 @@ class SteperView : LinearLayout,View.OnClickListener{
                     if (i-1 > 0){
                         getChildAt(i-1).setBackgroundColor(selectedColor)
                         if (temp == index){
-                            getChildAt(i-1).layoutParams = LayoutParams(1,0,4.0f)
+                            getChildAt(i-1).layoutParams = LayoutParams(lineWidth,lineHeight,4.0f)
                         }else {
-                            getChildAt(i-1).layoutParams = LayoutParams(1,0,1.0f)
+                            getChildAt(i-1).layoutParams = LayoutParams(lineWidth,lineHeight,1.0f)
                         }
                         i += 1
                     }
@@ -172,7 +181,7 @@ class SteperView : LinearLayout,View.OnClickListener{
                     (getChildAt(i) as SteperItem).select(false)
                     if (i-1 > 0){
                         getChildAt(i-1).setBackgroundColor(defaultColor)
-                        getChildAt(i-1).layoutParams = LayoutParams(1,0,1.0f)
+                        getChildAt(i-1).layoutParams = LayoutParams(lineWidth,lineHeight,1.0f)
                         i += 1
                     }
                 }

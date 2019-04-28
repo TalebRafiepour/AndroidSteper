@@ -9,9 +9,10 @@
     <com.taleb.steperview.SteperView
         android:id="@+id/mainSteper"
         android:layout_margin="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center|start"
+        android:orientation="horizontal"
         app:sv_item_thumbs="@array/thumbs"
         app:sv_item_titles="@array/titles"
         app:sv_font="fonts/IRAN Sans.ttf"
