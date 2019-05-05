@@ -132,8 +132,8 @@ class SteperView : LinearLayout, View.OnClickListener {
 
     override fun onClick(v: View?) {
         if (v != null && v is SteperItem) {
+            if (v.id == this.selectedItem) {return}
             selectItem(v.id)
-            listener?.onStepItemClick(v.id)
         }
     }
 
@@ -167,6 +167,7 @@ class SteperView : LinearLayout, View.OnClickListener {
 
     fun selectItem(index: Int) {
         this.selectedItem = index
+        listener?.onStepItemClick(index,this)
         TransitionManager.beginDelayedTransition(this, changeBound)
         var temp = -1
         var i = 0
@@ -213,6 +214,6 @@ class SteperView : LinearLayout, View.OnClickListener {
     }
 
     interface ISteperView {
-        fun onStepItemClick(position: Int)
+        fun onStepItemClick(position: Int,view: View)
     }
 }
