@@ -16,7 +16,7 @@ allprojects {
   
 ```
   dependencies {
-	        implementation 'com.github.TalebRafiepour:AndroidSteper:0.7'
+	        implementation 'com.github.TalebRafiepour:AndroidSteper:0.8'
 	}
    
 ```
