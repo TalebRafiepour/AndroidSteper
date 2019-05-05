@@ -165,7 +165,7 @@ class SteperView : LinearLayout, View.OnClickListener {
         }
     }
 
-    private fun selectItem(index: Int) {
+    fun selectItem(index: Int) {
         this.selectedItem = index
         TransitionManager.beginDelayedTransition(this, changeBound)
         var temp = -1
