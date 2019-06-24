@@ -21,8 +21,8 @@ allprojects {
    
 ```
  ----------------------------------------
- 
- ![alt text](https://github.com/TalebRafiepour/AndroidSteper/blob/master/screen.gif)
+
+ <img src="https://github.com/TalebRafiepour/AndroidSteper/blob/master/screen.gif" width="303"> 
  
  
  2.use
